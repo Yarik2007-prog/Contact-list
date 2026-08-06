@@ -1,0 +1,26 @@
+.contact-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.content {
+  margin: 0;
+  flex: 1;
+  border: 2px solid;
+  font-size: 20px;
+}
+
+.delete-btn {
+  text-align: center;
+  border: 2px solid;
+  width: 25px;
+  height: 25px;
+  background-color: var(--deleteBtn);
+  color: #ffffff;
+}
+
+.delete-btn {
+  cursor: pointer;
+}

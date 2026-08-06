@@ -1,6 +1,8 @@
 import { Component } from "react";
 
-export class ContactIListItem extends Component {
+import "./ContactListItem.css";
+
+export class ContactListItem extends Component {
   onContacteDelete = (event) => {
     event.stopPropagation();
     this.props.onDelete(this.props.contact.id);
@@ -17,7 +19,7 @@ export class ContactIListItem extends Component {
         <p className="content" onDoubleClick={this.onContactEdit}>
           {this.props.contact.firstName} {this.props.contact.lastName}
         </p>
-        <span className="delete-btn" onClick={this.onContactEdit}>
+        <span className="delete-btn" onClick={this.onContacteDelete}>
           X
         </span>
       </div>
@@ -25,4 +27,4 @@ export class ContactIListItem extends Component {
   }
 }
 
-export default ContactIListItem;
+export default ContactListItem;

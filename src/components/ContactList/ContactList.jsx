@@ -1,6 +1,8 @@
 import { Component } from "react";
 
-import ContactIListItem from "../ContactIListItem/ContactListItem.jsx";
+import ContactListItem from "../ContactListItem/ContactListItem.jsx";
+
+import "./ContactList.css"
 
 export class ContactList extends Component {
   render() {
@@ -9,11 +11,11 @@ export class ContactList extends Component {
         <div className="item-container">
           {this.props.contacts.map((contact) => {
             return (
-              <ContactIListItem
+              <ContactListItem
                 key={contact.id}
                 contact={contact}
-                onDelete={this.props.deleteContact}
-                onEditContact={this.props.selectContact}
+                onDelete={this.props.onDelete}
+                onEditContact={this.props.onEditContact}
               />
             );
           })}

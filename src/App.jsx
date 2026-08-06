@@ -64,7 +64,7 @@ class App extends Component {
     const contacts = [...this.state.contacts, contact];
     this.saveToStorage(contacts);
     this.setState({
-      contact: contacts,
+      contacts: [...contacts],
       contactForEdit: this.createEmptyContact(),
     });
   }
@@ -72,7 +72,7 @@ class App extends Component {
   updateContact(contact) {
     this.setState((state) => {
       const contacts = state.contacts.map((item) => {
-        item.id === contact.id ? contact : item;
+       return item.id === contact.id ? contact : item;
       });
       this.saveToStorage(contacts);
       return {

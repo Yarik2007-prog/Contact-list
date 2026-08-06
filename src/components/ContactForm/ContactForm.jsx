@@ -1,5 +1,6 @@
 import { Component } from "react";
 
+import './ContactForm.css'
 export class ContactForm extends Component {
   state = {
     ...this.props.contactForEdit,
@@ -39,7 +40,7 @@ export class ContactForm extends Component {
     }
   };
 
-  onContacntDelete = () => {
+  onContactDelete = () => {
     this.props.onDelete(this.props.contactForEdit.id);
     this.setState({
       ...this.createEmptyContact(),
@@ -110,11 +111,11 @@ export class ContactForm extends Component {
               Save
             </button>
 
-            {this.setState.id ? (
+            {this. state.id ? (
               <button
                 id="delete"
                 type="button"
-                onDelete={this.onContacntDelete}
+                onClick={this.onContactDelete}
               >
                 Delete
               </button>

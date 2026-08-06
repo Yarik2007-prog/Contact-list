@@ -1,0 +1,44 @@
+#save {
+  background-color: var(--saveBtn);
+  color: #ffffff;
+  border: none;
+  border-radius: 15px;
+  font-size: 20px;
+  width: 90px;
+  height: 40px;
+}
+
+#delete {
+  background-color: var(--deleteBtn);
+  color: #ffffff;
+  border: none;
+  border-radius: 15px;
+  font-size: 20px;
+  width: 90px;
+  height: 40px;
+}
+
+#contact-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid;
+  width: 350px;
+  height: 500px;
+}
+
+ .clear {
+  cursor: pointer;
+  background-color: var(--deleteBtn);
+  color: #ffffff;
+   font-size: 20px;
+}
+
+.contact-info {
+  margin-top: 20px;
+}
+
+.text-field {
+  height: 40px;
+  font-size: 15px;
+}

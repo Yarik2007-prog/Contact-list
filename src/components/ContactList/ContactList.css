@@ -1,0 +1,22 @@
+.list-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 350px;
+    height: 500px;
+}
+
+.item-container{
+    width: 280px;
+}
+
+#new{
+    background-color: var(--newBtn);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 15px;
+    font-size: 18px;
+    width: 90px;
+    height: 40px;
+}
