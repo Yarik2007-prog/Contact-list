@@ -1,30 +1,26 @@
-import { Component } from "react";
-
 import "./ContactListItem.css";
 
-export class ContactListItem extends Component {
-  onContacteDelete = (event) => {
+export function ContactListItem({ contact, onDelete, onEditContact }) {
+  const onContacteDelete = (event) => {
     event.stopPropagation();
-    this.props.onDelete(this.props.contact.id);
+    onDelete(contact.id);
   };
 
-  onContactEdit = (event) => {
+  const onContactEdit = (event) => {
     event.stopPropagation();
-    this.props.onEditContact(this.props.contact);
+    onEditContact(contact);
   };
 
-  render() {
-    return (
-      <div className="contact-item">
-        <p className="content" onDoubleClick={this.onContactEdit}>
-          {this.props.contact.firstName} {this.props.contact.lastName}
-        </p>
-        <span className="delete-btn" onClick={this.onContacteDelete}>
-          X
-        </span>
-      </div>
-    );
-  }
+  return (
+    <div className="contact-item">
+      <p className="content" onDoubleClick={onContactEdit}>
+        {contact.firstName} {contact.lastName}
+      </p>
+      <span className="delete-btn" onClick={onContacteDelete}>
+        X
+      </span>
+    </div>
+  );
 }
 
 export default ContactListItem;

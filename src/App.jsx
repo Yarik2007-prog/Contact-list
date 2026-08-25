@@ -59,12 +59,11 @@ function App() {
   }
 
   function updateContact(contact) {
-    const contacts = contacts.map((item) => {
+    const newContacts = contacts.map((item) => {
       return item.id === contact.id ? contact : item;
     });
-    saveToStorage(contacts);
-    setContacts(contacts);
-    setEmptyContact(createEmptyContact());
+    saveToStorage(newContacts);
+    setContacts(newContacts);
   }
 
   const deleteContact = (id) => {
