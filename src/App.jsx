@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import axios from "axios";
 import { nanoid } from "nanoid";
 
 import ContactForm from "./components/ContactForm/ContactForm.jsx";
@@ -21,6 +22,10 @@ function App() {
   const [contacts, setContacts] = useState([]);
   const [emptyContact, setEmptyContact] = useState(createEmptyContact());
 
+  const instance = axios.create({
+    baseURL: 'http://localhost:5000/contacts',
+  })
+
   useEffect(() => {
     const contacts = JSON.parse(localStorage.getItem("contacts"));
     if (!contacts) {
@@ -40,10 +45,6 @@ function App() {
     } else {
       updateContact(contact);
     }
-  };
-
-  const addNewContact = (contact) => {
-    setEmptyContact(contact);
   };
 
   const selectContact = (contact) => {
@@ -85,7 +86,7 @@ function App() {
           <ContactList
             contacts={contacts}
             onDelete={deleteContact}
-            onAddNewContact={addNewContact}
+            onAddNewContact={selectContact}
             onEditContact={selectContact}
           />
           <ContactForm
