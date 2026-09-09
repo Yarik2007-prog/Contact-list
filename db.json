@@ -1,5 +1,12 @@
 {
-    "contacts" :[
-        
-    ]
+  "contacts": [
+    {
+      "id": "RM5Gd2dNY0Q",
+      "firstName": "dshgsdgsdg",
+      "lastName": "vxbxfhdgdg",
+      "email": "",
+      "phone": ""
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
-import axios from "axios";
 import { nanoid } from "nanoid";
 
+import api from "./api/contact-service.js";
 import ContactForm from "./components/ContactForm/ContactForm.jsx";
 import ContactList from "./components/ContactList/ContactList.jsx";
 
@@ -22,22 +22,15 @@ function App() {
   const [contacts, setContacts] = useState([]);
   const [emptyContact, setEmptyContact] = useState(createEmptyContact());
 
-  const instance = axios.create({
-    baseURL: 'http://localhost:5000/contacts',
-  })
-
   useEffect(() => {
-    const contacts = JSON.parse(localStorage.getItem("contacts"));
-    if (!contacts) {
-      setContacts([]); // eslint-disable-line
-    } else {
-      setContacts(contacts);
-    }
+    api.get("/").then(({ data }) => {
+      if (!data) {
+        setContacts([]);
+      } else {
+        setContacts(data);
+      }
+    });
   }, []);
-
-  const saveToStorage = (arrContacts) => {
-    localStorage.setItem("contacts", JSON.stringify(arrContacts));
-  };
 
   const saveContact = (contact) => {
     if (!contact.id) {
@@ -53,29 +46,32 @@ function App() {
 
   function createContact(contact) {
     contact.id = nanoid();
-    const newContacts = [...contacts, contact];
-    saveToStorage(newContacts);
-    setContacts(newContacts);
-    setEmptyContact(createEmptyContact());
+
+    api.post(`/`, contact).then(({ data }) => {
+      const createdContact = data;
+      setContacts([...contacts, createdContact]);
+      setEmptyContact(createEmptyContact());
+    });
   }
 
   function updateContact(contact) {
-    const newContacts = contacts.map((item) => {
-      return item.id === contact.id ? contact : item;
+    api.put(`/${contact.id}`, contact).then(({ data }) => {
+      setContacts(
+        contacts.map((elem) => {
+          return elem.id !== contact.id ? elem : data;
+        }),
+      );
     });
-    saveToStorage(newContacts);
-    setContacts(newContacts);
   }
 
   const deleteContact = (id) => {
-    const contactList = [
-      ...contacts.filter((contact) => {
-        return contact.id !== id;
-      }),
-    ];
-    setContacts(contactList);
-
-    saveToStorage(contactList);
+    api.delete(`/${id}`).then(() => {
+      setContacts(
+        contacts.filter((elem) => {
+          elem.id !== id;
+        }),
+      );
+    });
   };
 
   return (
