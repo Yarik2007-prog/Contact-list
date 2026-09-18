@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 
-import { nanoid } from "nanoid";
-
 import api from "./api/contact-service.js";
 import ContactForm from "./components/ContactForm/ContactForm.jsx";
 import ContactList from "./components/ContactList/ContactList.jsx";
@@ -23,13 +21,16 @@ function App() {
   const [emptyContact, setEmptyContact] = useState(createEmptyContact());
 
   useEffect(() => {
-    api.get("/").then(({ data }) => {
-      if (!data) {
-        setContacts([]);
-      } else {
-        setContacts(data);
-      }
-    });
+    api
+      .get("/")
+      .then(({ data }) => {
+        if (!data) {
+          setContacts([]);
+        } else {
+          setContacts(data);
+        }
+      })
+      .catch((error) => console.log(error));
   }, []);
 
   const saveContact = (contact) => {
@@ -44,34 +45,43 @@ function App() {
     setEmptyContact(contact);
   };
 
-  function createContact(contact) {
-    contact.id = nanoid();
+  const addNewContact = () => {
+  setEmptyContact(createEmptyContact());
+};
 
-    api.post(`/`, contact).then(({ data }) => {
-      const createdContact = data;
-      setContacts([...contacts, createdContact]);
-      setEmptyContact(createEmptyContact());
-    });
+  function createContact(contact) {
+    api
+      .post(`/`, contact)
+      .then(({ data }) => {
+        setContacts([...contacts, data]);
+        setEmptyContact(createEmptyContact());
+      })
+      .catch((error) => console.log(error));
   }
 
   function updateContact(contact) {
-    api.put(`/${contact.id}`, contact).then(({ data }) => {
-      setContacts(
-        contacts.map((elem) => {
-          return elem.id !== contact.id ? elem : data;
-        }),
-      );
-    });
+    api
+      .put(`/${contact.id}`, contact)
+      .then(({ data }) => {
+        setContacts(
+          contacts.map((elem) => {
+            return elem.id !== data.id ? elem : data;
+          }),
+        );
+      })
+      .catch((error) => console.log(error));
   }
 
   const deleteContact = (id) => {
-    api.delete(`/${id}`).then(() => {
-      setContacts(
-        contacts.filter((elem) => {
-          elem.id !== id;
-        }),
-      );
-    });
+    api
+      .delete(`/${id}`)
+      .then(() => {
+        const newArrContacts = contacts.filter((elem) => elem.id !== id);
+        setContacts(newArrContacts);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -82,11 +92,10 @@ function App() {
           <ContactList
             contacts={contacts}
             onDelete={deleteContact}
-            onAddNewContact={selectContact}
+            onAddNewContact={addNewContact}
             onEditContact={selectContact}
           />
           <ContactForm
-            key={emptyContact.id}
             contactForEdit={emptyContact}
             onSubmit={saveContact}
             onDelete={deleteContact}

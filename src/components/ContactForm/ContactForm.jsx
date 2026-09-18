@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import "./ContactForm.css";
 
@@ -14,6 +14,10 @@ export function ContactForm({ onSubmit, contactForEdit, onDelete }) {
   }
 
   const [contactEdit, setContactEdit] = useState(contactForEdit);
+
+  useEffect(() => {
+    setContactEdit(contactForEdit)//eslint-disable-line
+  }, [contactForEdit])
 
   const onInputChange = (event) => {
     const { name, value } = event.target;
@@ -47,6 +51,8 @@ export function ContactForm({ onSubmit, contactForEdit, onDelete }) {
     onDelete(contactEdit.id);
     setContactEdit(createEmptyContact());
   };
+
+  console.log(contactEdit)
 
   return (
     <form id="contact-form" onSubmit={onFormSubmit}>
