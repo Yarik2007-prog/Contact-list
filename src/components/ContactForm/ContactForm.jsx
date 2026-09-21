@@ -13,21 +13,6 @@ import {
 import "./ContactForm.css";
 
 export function ContactForm() {
-  /*   function createEmptyContact() {
-    return {
-      id: null,
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-    };
-  } */
-
-  // const [contactEdit, setContactEdit] = useState(contactForEdit);
-
-  // useEffect(() => {
-  //   setContactEdit(contactForEdit)//eslint-disable-line
-  // }, [contactForEdit])
 
   const dispatch = useDispatch();
 

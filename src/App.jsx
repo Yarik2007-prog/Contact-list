@@ -1,5 +1,3 @@
-// import { useEffect, useState } from "react";
-
 import ContactForm from "./components/ContactForm/ContactForm.jsx";
 import ContactList from "./components/ContactList/ContactList.jsx";
 
