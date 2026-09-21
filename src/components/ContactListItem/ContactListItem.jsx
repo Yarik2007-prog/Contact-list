@@ -4,7 +4,6 @@ import api from "../../api/contact-service.js";
 import {
   delContact,
   setCurrentContact,
-  updateContact,
 } from "../../store/actions/contactActions";
 
 import "./ContactListItem.css";
