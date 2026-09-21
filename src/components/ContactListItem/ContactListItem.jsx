@@ -1,4 +1,4 @@
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import api from "../../api/contact-service.js";
 import {
@@ -8,20 +8,23 @@ import {
 
 import "./ContactListItem.css";
 
-export function ContactListItem({ contact, delContact, setCurrentContact }) {
+export function ContactListItem({ contact }) {
+
+  const dispatch = useDispatch();
+
   const onContacteDelete = (event) => {
     event.stopPropagation();
     api
       .delete(`/${contact.id}`)
       .then(() => {
-        delContact(contact.id);
+       dispatch(delContact(contact.id));
       })
       .catch((error) => console.log(error));
   };
 
   const onContactEdit = (event) => {
     event.stopPropagation();
-    setCurrentContact(contact);
+    dispatch(setCurrentContact(contact));
   };
 
   return (
@@ -36,6 +39,4 @@ export function ContactListItem({ contact, delContact, setCurrentContact }) {
   );
 }
 
-const mapDispatchToProps = { delContact, setCurrentContact };
-
-export default connect(null, mapDispatchToProps)(ContactListItem); //eslint-disable-line
+export default ContactListItem;

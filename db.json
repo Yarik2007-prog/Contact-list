@@ -27,6 +27,13 @@
       "lastName": "sdgsdg",
       "email": "",
       "phone": ""
+    },
+    {
+      "firstName": "asfsf",
+      "lastName": "dddda",
+      "email": "",
+      "phone": "",
+      "id": "CxXrC0yxH9I"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
