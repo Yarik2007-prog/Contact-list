@@ -1,21 +1,28 @@
 import { useEffect } from "react";
 
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import api from "../../api/contact-service.js";
-import { createEmptyContact, delContact, getContacts, setCurrentContact} from "../../store/actions/contactActions.js";
+import {
+  createEmptyContact,
+  delContact,
+  getContacts,
+  setCurrentContact,
+} from "../../store/actions/contactActions.js";
 import ContactListItem from "../ContactListItem/ContactListItem.jsx";
 
 import "./ContactList.css";
 
-export function ContactList({ contacts, getContacts, delContact, createEmptyContact, setCurrentContact }) {
+export function ContactList() {
+
+  const contacts = useSelector((state) => state.contacts);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     api.get("/").then(({ data }) => {
-      getContacts(data);
+      dispatch(getContacts(data));
     });
   }, []);
-
 
   return (
     <div className="list-container">
@@ -38,8 +45,5 @@ export function ContactList({ contacts, getContacts, delContact, createEmptyCont
   );
 }
 
-const mapStateToProps = ({ contacts }) => ({ contacts });
 
-const mapDispatchToProps = { createEmptyContact, delContact, getContacts, setCurrentContact };
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContactList); //eslint-disable-line
+export default ContactList; 
