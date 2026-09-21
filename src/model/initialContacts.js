@@ -1,9 +1,32 @@
-export const contactState = [
+export const contactState = {
+  contacts: [
     {
       id: "RM5Gd2dNY0Q",
       firstName: "dshgsdgsdg",
       lastName: "vxbxfhdgdg",
       email: "",
-      phone: ""
+      phone: "",
     },
-]
+    {
+      id: "S-JGW9IiBaA",
+      firstName: "lsefjsdfjsdjf",
+      lastName: "asfasfasf",
+      email: "",
+      phone: "632512",
+    },
+    {
+      id: "P61bdUDsuV4",
+      firstName: "fsfsdf",
+      lastName: "asfasfasf",
+      email: "",
+      phone: "5142452",
+    },
+  ],
+
+  currentContact: {
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+  },
+};

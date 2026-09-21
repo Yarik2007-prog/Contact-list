@@ -13,6 +13,20 @@
       "lastName": "asfasfasf",
       "email": "",
       "phone": "632512"
+    },
+    {
+      "id": "P61bdUDsuV4",
+      "firstName": "fsfsdf",
+      "lastName": "asfasfasf",
+      "email": "",
+      "phone": "5142456"
+    },
+    {
+      "id": "RgnsACUw60c",
+      "firstName": "fgdg",
+      "lastName": "sdgsdg",
+      "email": "",
+      "phone": ""
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

@@ -1,7 +1,8 @@
 import { contactState } from "../../model/initialContacts.js";
 
 const initialState = {
-  contacts: contactState,
+  contacts: contactState.contacts,
+  currentContact: contactState.currentContact,
 };
 
 export default function contactsReducer(
@@ -28,6 +29,22 @@ export default function contactsReducer(
 
     case "getContacts":
       return { ...state, contacts: payload };
+
+    case "setCurrentContact":
+      return { ...state, currentContact: payload };
+
+    case "createEmptyContact":
+      return {
+        ...state,
+        currentContact: {
+          id: null,
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+        },
+      };
+
     default:
       return state;
   }

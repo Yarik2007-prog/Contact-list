@@ -25,3 +25,16 @@ export const getContacts = (contacts) => {
     payload: contacts,
   };
 };
+
+export const setCurrentContact = (contact) => {
+  return {
+    type: "setCurrentContact",
+    payload: contact,
+  };
+};
+
+export const createEmptyContact = () => {
+  return {
+    type: "createEmptyContact",
+  };
+};

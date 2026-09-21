@@ -1,14 +1,28 @@
+import { connect } from "react-redux";
+
+import api from "../../api/contact-service.js";
+import {
+  delContact,
+  setCurrentContact,
+  updateContact,
+} from "../../store/actions/contactActions";
+
 import "./ContactListItem.css";
 
-export function ContactListItem({ contact, onDelete, onEditContact }) {
+export function ContactListItem({ contact, delContact, setCurrentContact }) {
   const onContacteDelete = (event) => {
     event.stopPropagation();
-    onDelete(contact.id);
+    api
+      .delete(`/${contact.id}`)
+      .then(() => {
+        delContact(contact.id);
+      })
+      .catch((error) => console.log(error));
   };
 
   const onContactEdit = (event) => {
     event.stopPropagation();
-    onEditContact(contact);
+    setCurrentContact(contact);
   };
 
   return (
@@ -23,4 +37,6 @@ export function ContactListItem({ contact, onDelete, onEditContact }) {
   );
 }
 
-export default ContactListItem;
+const mapDispatchToProps = { delContact, setCurrentContact };
+
+export default connect(null, mapDispatchToProps)(ContactListItem); //eslint-disable-line
