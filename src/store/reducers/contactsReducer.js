@@ -1,4 +1,5 @@
 import { contactState } from "../../model/initialContacts.js";
+import ACTION_TYPES from "../actions/actionsType.js";
 
 const initialState = {
   contacts: contactState.contacts,
@@ -10,16 +11,16 @@ export default function contactsReducer(
   { type, payload },
 ) {
   switch (type) {
-    case "addContact":
+    case ACTION_TYPES.ADD_CONTACT:
       return { ...state, contacts: [...state.contacts, payload] };
 
-    case "delContact":
+    case ACTION_TYPES.DEL_CONTACT:
       return {
         ...state,
         contacts: state.contacts.filter((elem) => elem.id !== payload),
       };
 
-    case "updateContact":
+    case ACTION_TYPES.UPDATE_CONTACT:
       return {
         ...state,
         contacts: state.contacts.map((elem) =>
@@ -27,13 +28,13 @@ export default function contactsReducer(
         ),
       };
 
-    case "getContacts":
+    case ACTION_TYPES.GET_CONTACTS:
       return { ...state, contacts: payload };
 
-    case "setCurrentContact":
+    case ACTION_TYPES.SET_CURRENT_CONTACT:
       return { ...state, currentContact: payload };
 
-    case "createEmptyContact":
+    case ACTION_TYPES.CREATE_EMPTY_CONTACT:
       return {
         ...state,
         currentContact: {

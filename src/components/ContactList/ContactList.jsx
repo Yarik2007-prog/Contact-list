@@ -22,7 +22,7 @@ export function ContactList() {
     api.get("/").then(({ data }) => {
       dispatch(getContacts(data));
     });
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="list-container">
@@ -38,7 +38,7 @@ export function ContactList() {
           );
         })}
       </div>
-      <button id="new" onClick={createEmptyContact}>
+      <button id="new" onClick={() => dispatch(createEmptyContact())}>
         New
       </button>
     </div>
