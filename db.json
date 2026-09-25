@@ -34,6 +34,13 @@
       "email": "",
       "phone": "",
       "id": "CxXrC0yxH9I"
+    },
+    {
+      "firstName": "lksdfjlskefj",
+      "lastName": "asfasf",
+      "email": "",
+      "phone": "",
+      "id": "JKD2JM8WWZA"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
