@@ -1,19 +1,17 @@
 // import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import api from "../../api/contact-service.js";
 import {
-  addContact,
+  addContactAction,
   createEmptyContact,
-  delContact,
+  delContactAction,
   setCurrentContact,
-  updateContact,
+  updateContactAction,
 } from "../../store/actions/contactActions.js";
 
 import "./ContactForm.css";
 
 export function ContactForm() {
-
   const dispatch = useDispatch();
 
   const contactEdit = useSelector((state) => {
@@ -46,27 +44,16 @@ export function ContactForm() {
     event.preventDefault();
 
     if (contactEdit.id) {
-      api
-        .put(`/${contactEdit.id}`, contactEdit)
-        .then(({ data }) => {
-          dispatch(updateContact(data));
-        })
-        .catch((error) => console.log(error));
+      dispatch(updateContactAction(contactEdit));
     } else {
-      api
-        .post("/", contactEdit)
-        .then(({ data }) => {
-          dispatch(addContact(data));
-          dispatch(createEmptyContact());
-        })
-        .catch((error) => console.log(error));
+      dispatch(addContactAction(contactEdit));
+      dispatch(createEmptyContact());
     }
   };
 
   const onContactDelete = () => {
-    api.delete(`/${contactEdit.id}`, contactEdit).then(({ data }) => {
-      dispatch(delContact(data.id));
-    });
+    dispatch(delContactAction(contactEdit.id));
+
     dispatch(createEmptyContact());
   };
 

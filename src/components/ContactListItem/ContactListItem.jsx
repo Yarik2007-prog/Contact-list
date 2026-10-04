@@ -1,25 +1,19 @@
 import { useDispatch } from "react-redux";
 
-import api from "../../api/contact-service.js";
 import {
-  delContact,
+  delContactAction,
   setCurrentContact,
 } from "../../store/actions/contactActions";
 
 import "./ContactListItem.css";
 
 export function ContactListItem({ contact }) {
-
   const dispatch = useDispatch();
 
   const onContacteDelete = (event) => {
     event.stopPropagation();
-    api
-      .delete(`/${contact.id}`)
-      .then(() => {
-       dispatch(delContact(contact.id));
-      })
-      .catch((error) => console.log(error));
+
+    dispatch(delContactAction(contact.id));
   };
 
   const onContactEdit = (event) => {

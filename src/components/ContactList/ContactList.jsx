@@ -2,11 +2,10 @@ import { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import api from "../../api/contact-service.js";
 import {
   createEmptyContact,
-  delContact,
-  getContacts,
+  delContactAction,
+  getContactsAction,
   setCurrentContact,
 } from "../../store/actions/contactActions.js";
 import ContactListItem from "../ContactListItem/ContactListItem.jsx";
@@ -19,9 +18,7 @@ export function ContactList() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    api.get("/").then(({ data }) => {
-      dispatch(getContacts(data));
-    });
+    dispatch(getContactsAction());
   }, [dispatch]);
 
   return (
@@ -32,7 +29,7 @@ export function ContactList() {
             <ContactListItem
               key={contact.id}
               contact={contact}
-              delContact={delContact}
+              delContact={delContactAction}
               updateContact={setCurrentContact}
             />
           );

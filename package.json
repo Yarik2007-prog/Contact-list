@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint --fix .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "json-server -w db.json -p 5000"
   },
   "dependencies": {
     "@redux-devtools/extension": "^4.0.0",
@@ -18,7 +19,8 @@
     "react-dom": "^19.2.7",
     "react-redux": "^9.3.0",
     "redux": "^5.0.1",
-    "redux-logger": "^3.0.6"
+    "redux-logger": "^3.0.6",
+    "redux-saga": "^1.5.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
