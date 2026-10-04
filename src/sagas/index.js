@@ -1,4 +1,4 @@
-import { takeEvery, takeLatest, takeLeading } from "redux-saga/effects";
+import { takeLatest } from "redux-saga/effects";
 
 import ACTION_TYPES from "../store/actions/actionsType.js";
 
