@@ -46,7 +46,7 @@ export const delContact = createAsyncThunk(
 
 export const addContact = createAsyncThunk(
   `${CONTACT_SLICE_NAME}/addContact`,
-  async function (contact, { rejectWithValue }) {
+  async function (contact, { rejectWithValue, dispatch }) {
     try {
       const response = await api.post(`${CONTACT_SLICE_NAME}`, contact);
       if (response.status >= 400) {
@@ -55,7 +55,7 @@ export const addContact = createAsyncThunk(
         );
       }
       const { data } = response;
-      return data;
+      dispatch(createContact(data));
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -96,9 +96,9 @@ const contactSlice = createSlice({
   name: CONTACT_SLICE_NAME,
   initialState,
   reducers: {
-    /* createContact(state, { payload }) {
+    createContact(state, { payload }) {
       state.contacts.push(payload);
-    }, */
+    },
     removeContact(state, { payload }) {
       state.contacts = [
         ...state.contacts.filter((elem) => elem.id !== payload),
@@ -124,23 +124,37 @@ const contactSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    //getContacts
     builder.addCase(getContacts.fulfilled, (state, { payload }) => {
       state.isFetching = false;
+      state.error = null;
       state.contacts = payload;
     });
     builder.addCase(getContacts.pending, setFetching);
     builder.addCase(getContacts.rejected, setError);
+
+    //addContact
+    builder.addCase(addContact.pending, setFetching);
+    builder.addCase(addContact.rejected, setError);
+
+    //updateContact
+    builder.addCase(updateContact.pending, setFetching);
+    builder.addCase(updateContact.rejected, setError);
+
+    //delContact
+    builder.addCase(delContact.pending, setFetching);
+    builder.addCase(delContact.rejected, setError);
   },
 });
 
 const { actions, reducer } = contactSlice;
 
 const {
-  /* createContact, */
+  createContact,
   removeContact,
   changeContact,
-  setCurrentContact,
-  createEmptyContact,
 } = actions;
+
+export const { setCurrentContact, createEmptyContact } = actions;
 
 export default reducer;
