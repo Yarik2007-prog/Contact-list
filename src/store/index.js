@@ -1,16 +1,10 @@
-import { composeWithDevTools } from "@redux-devtools/extension";
-import { applyMiddleware, createStore } from "redux";
-import { logger } from "redux-logger";
-import createSagaMiddleware from "redux-saga";
+import { configureStore } from "@reduxjs/toolkit";
 
-import rootSaga from "../sagas/index.js";
+// import { logger } from "redux-logger";
+import reducer from "./slices/contactSlice";
 
-import contactsReducer from "./reducers/contactsReducer.js";
-
-const sagaMiddleware = createSagaMiddleware();
-
-const middleware = applyMiddleware(sagaMiddleware, logger);
-
-export default createStore(contactsReducer, composeWithDevTools(middleware));
-
-sagaMiddleware.run(rootSaga);
+export default configureStore({
+  reducer: {
+    contactList: reducer,
+  },
+});
