@@ -1,9 +1,6 @@
 import { useDispatch } from "react-redux";
 
-import {
-  delContactAction,
-  setCurrentContact,
-} from "../../store/actions/contactActions";
+import { delContact, setCurrentContact } from "../../store/slices/contactSlice";
 
 import "./ContactListItem.css";
 
@@ -13,7 +10,7 @@ export function ContactListItem({ contact }) {
   const onContacteDelete = (event) => {
     event.stopPropagation();
 
-    dispatch(delContactAction(contact.id));
+    dispatch(delContact(contact.id));
   };
 
   const onContactEdit = (event) => {

@@ -2,12 +2,12 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-  addContactAction,
+  addContact,
   createEmptyContact,
-  delContactAction,
+  delContact,
   setCurrentContact,
-  updateContactAction,
-} from "../../store/actions/contactActions.js";
+  updateContact,
+} from "../../store/slices/contactSlice";
 
 import "./ContactForm.css";
 
@@ -15,7 +15,7 @@ export function ContactForm() {
   const dispatch = useDispatch();
 
   const contactEdit = useSelector((state) => {
-    return state.currentContact;
+    return state.contactList.currentContact;
   });
 
   const onInputChange = (event) => {
@@ -44,15 +44,15 @@ export function ContactForm() {
     event.preventDefault();
 
     if (contactEdit.id) {
-      dispatch(updateContactAction(contactEdit));
+      dispatch(updateContact(contactEdit));
     } else {
-      dispatch(addContactAction(contactEdit));
+      dispatch(addContact(contactEdit));
       dispatch(createEmptyContact());
     }
   };
 
   const onContactDelete = () => {
-    dispatch(delContactAction(contactEdit.id));
+    dispatch(delContact(contactEdit.id));
 
     dispatch(createEmptyContact());
   };

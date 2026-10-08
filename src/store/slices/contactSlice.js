@@ -64,19 +64,15 @@ export const addContact = createAsyncThunk(
 
 export const updateContact = createAsyncThunk(
   `${CONTACT_SLICE_NAME}/updateContact`,
-  async function (id, { rejectWithValue, dispatch, getState }) {
-    const contact = getState().contactList.contacts.find(
-      (elem) => elem.id === id,
-    );
+  async function (contact, { rejectWithValue, dispatch }) {
     try {
-      const response = await api.put(`${CONTACT_SLICE_NAME}/${id}`, contact);
-      if (response.status >= 400) {
-        throw new Error(
-          `Can't change contact. Error status is ${response.status}`,
-        );
-      }
+      const response = await api.put(
+        `${CONTACT_SLICE_NAME}/${contact.id}`,
+        contact,
+      );
+
       const { data } = response;
-      console.log(data);
+
       dispatch(changeContact(data));
     } catch (error) {
       return rejectWithValue(error.message);
@@ -101,7 +97,7 @@ const contactSlice = createSlice({
     },
     removeContact(state, { payload }) {
       state.contacts = [
-        ...state.contacts.filter((elem) => elem.id !== payload),
+        ...state.contacts.filter((elem) => elem.id !== payload.id),
       ];
     },
     changeContact(state, { payload }) {
@@ -149,11 +145,7 @@ const contactSlice = createSlice({
 
 const { actions, reducer } = contactSlice;
 
-const {
-  createContact,
-  removeContact,
-  changeContact,
-} = actions;
+const { createContact, removeContact, changeContact } = actions;
 
 export const { setCurrentContact, createEmptyContact } = actions;
 

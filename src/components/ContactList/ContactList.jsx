@@ -4,21 +4,20 @@ import { useDispatch, useSelector } from "react-redux";
 
 import {
   createEmptyContact,
-  delContactAction,
-  getContactsAction,
+  delContact,
+  getContacts,
   setCurrentContact,
-} from "../../store/actions/contactActions.js";
+} from "../../store/slices/contactSlice.js";
 import ContactListItem from "../ContactListItem/ContactListItem.jsx";
 
 import "./ContactList.css";
 
 export function ContactList() {
-
-  const contacts = useSelector((state) => state.contacts);
+  const contacts = useSelector((state) => state.contactList.contacts);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getContactsAction());
+    dispatch(getContacts());
   }, [dispatch]);
 
   return (
@@ -29,7 +28,7 @@ export function ContactList() {
             <ContactListItem
               key={contact.id}
               contact={contact}
-              delContact={delContactAction}
+              delContact={delContact}
               updateContact={setCurrentContact}
             />
           );
@@ -42,5 +41,4 @@ export function ContactList() {
   );
 }
 
-
-export default ContactList; 
+export default ContactList;
