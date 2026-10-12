@@ -1,11 +1,12 @@
 // import { useEffect, useState } from "react";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
+import * as Yup from "yup";
 
 import {
   addContact,
   createEmptyContact,
   delContact,
-  setCurrentContact,
   updateContact,
 } from "../../store/slices/contactSlice";
 
@@ -18,35 +19,112 @@ export function ContactForm() {
     return state.contactList.currentContact;
   });
 
-  const onInputChange = (event) => {
-    const { name, value } = event.target;
+  const schema = Yup.object().shape({
+    firstName: Yup.string().required("First name is required"),
+    lastName: Yup.string().required("Last name is required"),
+    email: Yup.string().email("Invalid email"),
+    phone: Yup.string().matches(/^\+?[0-9]{10,15}$/, "Invalid phone number"),
+  });
 
-    dispatch(
-      setCurrentContact({
-        ...contactEdit,
-        [name]: value,
-      }),
+  const renderForm = ({ isValid, setFieldValue }) => {
+    return (
+      <Form id="contact-form">
+        <div className="form-container">
+          <div className="contact-info">
+            <Field
+              type="text"
+              className="text-field"
+              placeholder="First Name"
+              name="firstName"
+            />
+
+            <span
+              className="clear"
+              onClick={() => setFieldValue("firstName", "")}
+            >
+              X
+            </span>
+
+            <ErrorMessage name="firstName">
+              {(msg) => <div className="error">{msg}</div>}
+            </ErrorMessage>
+          </div>
+
+          <div className="contact-info">
+            <Field
+              type="text"
+              className="text-field"
+              placeholder="Last Name"
+              name="lastName"
+            />
+
+            <span
+              className="clear"
+              onClick={() => setFieldValue("lastName", "")}
+            >
+              X
+            </span>
+
+            <ErrorMessage name="lastName">
+              {(msg) => <div className="error">{msg}</div>}
+            </ErrorMessage>
+          </div>
+
+          <div className="contact-info">
+            <Field
+              type="email"
+              className="text-field"
+              placeholder="Email"
+              name="email"
+            />
+
+            <span className="clear" onClick={() => setFieldValue("email", "")}>
+              X
+            </span>
+
+            <ErrorMessage name="email">
+              {(msg) => <div className="error">{msg}</div>}
+            </ErrorMessage>
+          </div>
+
+          <div className="contact-info">
+            <Field
+              type="text"
+              className="text-field"
+              placeholder="Phone"
+              name="phone"
+            />
+
+            <span className="clear" onClick={() => setFieldValue("phone", "")}>
+              X
+            </span>
+
+            <ErrorMessage name="phone">
+              {(msg) => <div className="error">{msg}</div>}
+            </ErrorMessage>
+          </div>
+        </div>
+
+        <div className="btns">
+          <button id="save" type="submit" disabled={!isValid}>
+            Save
+          </button>
+
+          {contactEdit.id && (
+            <button id="delete" type="button" onClick={onContactDelete}>
+              Delete
+            </button>
+          )}
+        </div>
+      </Form>
     );
   };
 
-  const onClearField = (event) => {
-    const input = event.target.parentNode.firstChild;
-
-    dispatch(
-      setCurrentContact({
-        ...contactEdit,
-        [input.name]: "",
-      }),
-    );
-  };
-
-  const onFormSubmit = (event) => {
-    event.preventDefault();
-
-    if (contactEdit.id) {
-      dispatch(updateContact(contactEdit));
+  const onFormSubmit = (values) => {
+    if (values.id) {
+      dispatch(updateContact(values));
     } else {
-      dispatch(addContact(contactEdit));
+      dispatch(addContact(values));
       dispatch(createEmptyContact());
     }
   };
@@ -58,81 +136,15 @@ export function ContactForm() {
   };
 
   return (
-    <form id="contact-form" onSubmit={onFormSubmit}>
-      <div className="form-container">
-        <div className="contact-info">
-          <input
-            type="text"
-            className="text-field"
-            placeholder="First Name"
-            name="firstName"
-            value={contactEdit.firstName}
-            onChange={onInputChange}
-          />
-
-          <span className="clear" onClick={onClearField}>
-            X
-          </span>
-        </div>
-
-        <div className="contact-info">
-          <input
-            type="text"
-            className="text-field"
-            placeholder="Last Name"
-            name="lastName"
-            value={contactEdit.lastName}
-            onChange={onInputChange}
-          />
-
-          <span className="clear" onClick={onClearField}>
-            X
-          </span>
-        </div>
-
-        <div className="contact-info">
-          <input
-            type="email"
-            className="text-field"
-            placeholder="Email"
-            name="email"
-            value={contactEdit.email}
-            onChange={onInputChange}
-          />
-
-          <span className="clear" onClick={onClearField}>
-            X
-          </span>
-        </div>
-
-        <div className="contact-info">
-          <input
-            type="text"
-            className="text-field"
-            placeholder="Phone"
-            name="phone"
-            value={contactEdit.phone}
-            onChange={onInputChange}
-          />
-
-          <span className="clear" onClick={onClearField}>
-            X
-          </span>
-        </div>
-      </div>
-
-      <div className="btns">
-        <button id="save" type="submit">
-          Save
-        </button>
-
-        {contactEdit.id && (
-          <button id="delete" type="button" onClick={onContactDelete}>
-            Delete
-          </button>
-        )}
-      </div>
-    </form>
+    <Formik
+      initialValues={contactEdit}
+      onSubmit={onFormSubmit}
+      validationSchema={schema}
+      enableReinitialize
+      validateOnMount
+    >
+      {renderForm}
+    </Formik>
   );
 }
 
