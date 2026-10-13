@@ -1,5 +1,7 @@
-// import { useEffect, useState } from "react";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import BackspaceIcon from "@mui/icons-material/Backspace";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import {  Field, Form, Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 
@@ -26,94 +28,88 @@ export function ContactForm() {
     phone: Yup.string().matches(/^\+?[0-9]{10,15}$/, "Invalid phone number"),
   });
 
-  const renderForm = ({ isValid, setFieldValue }) => {
+  const renderForm = ({ isValid, setFieldValue, errors, touched }) => {
     return (
       <Form id="contact-form">
         <div className="form-container">
           <div className="contact-info">
             <Field
+              as={TextField}
               type="text"
               className="text-field"
               placeholder="First Name"
               name="firstName"
+              error={Boolean(touched.firstName && errors.firstName)}
+              helperText={touched.firstName && errors.firstName}
             />
 
-            <span
+            <BackspaceIcon
               className="clear"
               onClick={() => setFieldValue("firstName", "")}
-            >
-              X
-            </span>
-
-            <ErrorMessage name="firstName">
-              {(msg) => <div className="error">{msg}</div>}
-            </ErrorMessage>
+            />
           </div>
 
           <div className="contact-info">
             <Field
+              as={TextField}
               type="text"
               className="text-field"
               placeholder="Last Name"
               name="lastName"
+              error={Boolean(touched.lastName && errors.lastName)}
+              helperText={touched.lastName && errors.lastName}
             />
 
-            <span
+            <BackspaceIcon
               className="clear"
               onClick={() => setFieldValue("lastName", "")}
-            >
-              X
-            </span>
-
-            <ErrorMessage name="lastName">
-              {(msg) => <div className="error">{msg}</div>}
-            </ErrorMessage>
+            />
           </div>
 
           <div className="contact-info">
             <Field
+              as={TextField}
               type="email"
               className="text-field"
               placeholder="Email"
               name="email"
+              error={Boolean(touched.email && errors.email)}
+              helperText={touched.email && errors.email}
             />
 
-            <span className="clear" onClick={() => setFieldValue("email", "")}>
-              X
-            </span>
-
-            <ErrorMessage name="email">
-              {(msg) => <div className="error">{msg}</div>}
-            </ErrorMessage>
+            <BackspaceIcon
+              className="clear"
+              onClick={() => setFieldValue("email", "")}
+            />
           </div>
 
           <div className="contact-info">
             <Field
+              as={TextField}
               type="text"
               className="text-field"
               placeholder="Phone"
               name="phone"
+              error={Boolean(touched.phone && errors.phone)}
+              helperText={touched.phone && errors.phone}
             />
 
-            <span className="clear" onClick={() => setFieldValue("phone", "")}>
-              X
-            </span>
-
-            <ErrorMessage name="phone">
-              {(msg) => <div className="error">{msg}</div>}
-            </ErrorMessage>
+            <BackspaceIcon
+              className="clear"
+              onClick={() => setFieldValue("phone", "")}
+            />
           </div>
         </div>
 
         <div className="btns">
-          <button id="save" type="submit" disabled={!isValid}>
+          <Button id="save" type="submit" disabled={!isValid}>
             Save
-          </button>
+          </Button>
 
           {contactEdit.id && (
-            <button id="delete" type="button" onClick={onContactDelete}>
+            <Button id="delete" type="button" onClick={onContactDelete}>
               Delete
-            </button>
+            </Button>
           )}
         </div>
       </Form>

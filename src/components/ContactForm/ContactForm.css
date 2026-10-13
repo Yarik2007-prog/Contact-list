@@ -15,6 +15,11 @@
   opacity: 0.6;
 }
 
+#save:hover {
+  background-color: #0e815a;
+  color: #ffffff;
+}
+
 #delete {
   background-color: var(--deleteBtn);
   color: #ffffff;
@@ -23,6 +28,12 @@
   font-size: 20px;
   width: 90px;
   height: 40px;
+  margin-left: 50px;
+}
+
+#delete:hover {
+  background-color: #ab2c2c;
+  color: #ffffff;
 }
 
 #contact-form {
@@ -36,22 +47,13 @@
 
 .clear {
   cursor: pointer;
-  background-color: var(--deleteBtn);
-  color: #ffffff;
+  margin-left: 20px;
   font-size: 20px;
+  color: red;
+  margin-top: 14px;
 }
 
 .contact-info {
   margin-top: 20px;
 }
 
-.text-field {
-  height: 40px;
-  font-size: 15px;
-}
-
-.error {
-  color: red;
-  font-size: 0.8em;
-  margin: 150 auto;
-}

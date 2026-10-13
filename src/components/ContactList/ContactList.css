@@ -20,3 +20,8 @@
     width: 90px;
     height: 40px;
 }
+
+#new:hover{
+   background-color: #342b95; 
+   color: #FFFFFF;
+}

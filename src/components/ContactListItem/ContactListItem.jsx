@@ -1,3 +1,5 @@
+import BackspaceIcon from "@mui/icons-material/Backspace";
+import Typography from "@mui/material/Typography";
 import { useDispatch } from "react-redux";
 
 import { delContact, setCurrentContact } from "../../store/slices/contactSlice";
@@ -20,12 +22,10 @@ export function ContactListItem({ contact }) {
 
   return (
     <div className="contact-item">
-      <p className="content" onDoubleClick={onContactEdit}>
+      <Typography className="content" onDoubleClick={onContactEdit}>
         {contact.firstName} {contact.lastName}
-      </p>
-      <span className="delete-btn" onClick={onContacteDelete}>
-        X
-      </span>
+      </Typography>
+      <BackspaceIcon className="delete-btn" onClick={onContacteDelete}/>
     </div>
   );
 }

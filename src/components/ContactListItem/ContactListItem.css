@@ -3,6 +3,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 10px;
+  margin-top: 10px;
 }
 
 .content {
@@ -14,11 +15,9 @@
 
 .delete-btn {
   text-align: center;
-  border: 2px solid;
+  color: red;
   width: 25px;
   height: 25px;
-  background-color: var(--deleteBtn);
-  color: #ffffff;
 }
 
 .delete-btn {

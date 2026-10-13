@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 
+import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -34,9 +35,9 @@ export function ContactList() {
           );
         })}
       </div>
-      <button id="new" onClick={() => dispatch(createEmptyContact())}>
+      <Button id="new" onClick={() => dispatch(createEmptyContact())}>
         New
-      </button>
+      </Button>
     </div>
   );
 }

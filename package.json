@@ -11,6 +11,10 @@
     "start": "json-server -w db.json -p 5000"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^9.5.0",
+    "@mui/material": "^9.5.0",
     "@redux-devtools/extension": "^4.0.0",
     "@reduxjs/toolkit": "^2.13.0",
     "axios": "^1.20.0",
